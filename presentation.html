@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Payroll Management System - Capstone Presentation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
+    <style>
+        :root {
+            --bg-primary: #090a0f;
+            --bg-secondary: #0f111a;
+            --bg-card: #151824;
+            --accent-gold: #f59e0b;
+            --accent-blue: #38bdf8;
+            --member1-color: #06b6d4;
+            --member2-color: #a855f7;
+            --member3-color: #f97316;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --border-color: #22263a;
+            --transition-speed: 0.25s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Presentation Container ────────────────────────────────────────── */
+        .presentation-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* ── Slide Frame (16:9 Aspect Ratio) ─────────────────────────────── */
+        .slide-frame {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 30px rgba(56, 189, 248, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Slide Deck ──────────────────────────────────────────────────── */
+        .slide-deck {
+            flex: 1;
+            position: relative;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            padding: 35px 50px;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .slide.prev {
+            transform: translateX(-40px);
+        }
+
+        /* ── Slide Header ────────────────────────────────────────────────── */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .slide-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .member-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .badge-m1 {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: var(--member1-color);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .badge-m2 {
+            background-color: rgba(168, 85, 247, 0.15);
+            color: var(--member2-color);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .badge-m3 {
+            background-color: rgba(249, 115, 22, 0.15);
+            color: var(--member3-color);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+
+        .slide-category {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .slide-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 1.1rem;
+            line-height: 1.55;
+        }
+
+        /* ── Layout Framework ────────────────────────────────────────────── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 22px;
+            font-size: 0.95rem;
+            color: #d1d5db;
+        }
+
+        li::before {
+            content: "✦";
+            color: var(--accent-blue);
+            position: absolute;
+            left: 0;
+        }
+
+        li.check::before {
+            content: "✓";
+            color: #10b981;
+        }
+
+        li.cross::before {
+            content: "✗";
+            color: #ef4444;
+        }
+
+        /* ── Tables ──────────────────────────────────────────────────────── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: rgba(56, 189, 248, 0.08);
+            color: var(--accent-blue);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+
+        /* ── Code Blocks & Diagrams ──────────────────────────────────────── */
+        pre {
+            font-family: 'Fira Code', monospace;
+            background-color: #05060a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            color: #e5e7eb;
+            line-height: 1.35;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(255, 255, 255, 0.06);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* ── Navigation bar ─────────────────────────────────────────────── */
+        .controls-bar {
+            height: 55px;
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            z-index: 100;
+        }
+
+        .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: rgba(255,255,255,0.05);
+            border-color: var(--text-primary);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .center-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slide-select {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .right-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-notes-btn {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .toggle-notes-btn:hover {
+            background-color: var(--accent-gold);
+            color: var(--bg-primary);
+        }
+
+        /* ── Speaker Notes Panel ────────────────────────────────────────── */
+        .notes-drawer {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+            padding: 20px 25px;
+            margin: -20px auto 20px auto;
+            max-height: 250px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+
+        .notes-drawer.open {
+            display: block;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+        }
+
+        .notes-sidebar {
+            border-right: 1px solid var(--border-color);
+            padding-right: 15px;
+            font-size: 0.85rem;
+        }
+
+        .notes-sidebar div {
+            margin-bottom: 8px;
+        }
+
+        .notes-body {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #d1d5db;
+        }
+
+        .notes-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        /* ── Title & Intro Slide Designs ─────────────────────────────────── */
+        .title-slide {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .title-banner {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--accent-blue);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .member-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .member-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .slide-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        <div class="slide-frame">
+            <div class="slide-deck" id="deck">
+                
+                <!-- SLIDE 1: Title -->
+                <div class="slide active title-slide">
+                    <div class="title-banner">EMPLOYEE PAYROLL SYSTEM</div>
+                    <div class="subtitle">Java 17 Enterprise Console Capstone Project</div>
+                    
+                    <div class="team-grid">
+                        <div class="member-card" style="border-top: 3px solid var(--member1-color);">
+                            <div class="member-card-title" style="color: var(--member1-color);">MEMBER 1</div>
+                            <div style="font-size: 0.85rem; color: #fff;">Intro & Analysis</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top:5px;">Code: Main.java Menu & Flow</div>
+                        </div>
+                        <div class="member-card" style="border-top: 3px solid var(--member2-color);">
+                            <div class="member-card-title" style="color: var(--member2-color);">MEMBER 2</div>
+                            <div style="font-size: 0.85rem; color: #fff;">System Design & UML</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top:5px;">Code: Models & CRUD Service</div>
+                        </div>
+                        <div class="member-card" style="border-top: 3px solid var(--member3-color);">
+                            <div class="member-card-title" style="color: var(--member3-color);">MEMBER 3</div>
+                            <div style="font-size: 0.85rem; color: #fff;">Business Rules & Demo</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top:5px;">Code: Calculations & File I/O</div>
+                        </div>
+                    </div>
+
+                    <div class="slide-footer">
+                        <span>EPMS Capstone Project</span>
+                        <span>Slide 1 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: Agenda -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Agenda & Flow</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Overview</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-3">
+                            <div class="card" style="border-left: 2px solid var(--member1-color);">
+                                <div class="card-title">Part 1: Intro & Analysis</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Problem statement, requirements elicitation, SDLC methodology, and layered architecture overview.</p>
+                            </div>
+                            <div class="card" style="border-left: 2px solid var(--member2-color);">
+                                <div class="card-title">Part 2: UML System Design</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Package structures, UML design diagrams, state lifecycles, and calculation flowcharts.</p>
+                            </div>
+                            <div class="card" style="border-left: 2px solid var(--member3-color);">
+                                <div class="card-title">Part 3: Code & Execution</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Salary rules, NIO file processing, OOP principles, testing, and full interactive demo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 2 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Problem Statement -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Problem Statement</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Analysis</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="card">
+                            <div class="card-title">The Challenge of Spreadsheet Processing</div>
+                            <ul>
+                                <li class="cross">Inaccurate calculations due to manually managed cells and static rates.</li>
+                                <li class="cross">No verification of inputs (allowing negative payroll and blank names).</li>
+                                <li class="cross">No validation checks for duplicate employee IDs.</li>
+                                <li class="cross">Data redundancy and scattering across separate monthly directories.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 3 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: Existing System -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Existing Excel System</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Analysis</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div class="card" style="border-left: 3px solid #ef4444;">
+                                <div class="card-title">Existing Process</div>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">Traditional spreadsheet workflows require manually typing data, copy-pasting template forms, and relying on formulas that are prone to accidental edits.</p>
+                            </div>
+                            <div class="card" style="border-left: 3px solid #ef4444;">
+                                <div class="card-title">Key Disadvantages</div>
+                                <ul>
+                                    <li>Accidental cell modifications break calculations.</li>
+                                    <li>Data entry mistakes go undetected (no runtime checks).</li>
+                                    <li>No structured audit trail of changes.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 4 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 5: Proposed System -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Proposed Automated System</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Analysis</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div class="card" style="border-left: 3px solid var(--member1-color);">
+                                <div class="card-title">System Features</div>
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">A decoupled Java 17 console application that automates all payroll operations, checks constraints on entry, and handles database operations in memory.</p>
+                            </div>
+                            <div class="card" style="border-left: 3px solid var(--member1-color);">
+                                <div class="card-title">Core Advantages</div>
+                                <ul>
+                                    <li class="check">Zero calculation mismatch.</li>
+                                    <li class="check">Polymorphic calculations simplify rules.</li>
+                                    <li class="check">Resilient file parsing avoids runtime failures.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 5 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 6: Objectives -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Project Objectives</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Objectives</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <ul>
+                                    <li>Implement clean object-oriented patterns in Java 17.</li>
+                                    <li>Achieve salary calculations without complex conditional branches.</li>
+                                    <li>Utilize HashMap collections for fast key-value lookups.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li>Wrap potential failures in custom exception types.</li>
+                                    <li>Integrate file reading and writing using modern NIO packages.</li>
+                                    <li>Format structured payslips and corporate aggregates.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 6 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7: Scope -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">System Scope</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Scope</span>
+                    </div>
+                    <div class="slide-body">
+                        <table style="width: 100%; border: 1px solid var(--border-color);">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">In-Scope Core Features</th>
+                                    <th>Out-of-Scope Roadmap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li>Complete Employee CRUD operations</li>
+                                            <li>Regular, Contract, and Intern subtypes</li>
+                                            <li>Salary processing & payslip export</li>
+                                            <li>CSV-based import/export</li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>Relational database integration</li>
+                                            <li>Graphical Web/UI dashboards</li>
+                                            <li>JWT authorization & role checks</li>
+                                            <li>Docker & Cloud deployments</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 7 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 8: Functional Requirements -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Functional Requirements</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Requirements</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-3">
+                            <div class="card">
+                                <div class="card-title">Employee CRUD</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Option 1-5: Adds, updates, deletes, and searches employees in memory.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Payroll Logic</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Option 6 & 9: Calculates wages using dynamic dispatch and formats payslips.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">File Operations</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Option 7 & 8: Resilient bulk CSV loading and data exporting.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 8 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 9: Non-Functional Requirements -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Non-Functional Requirements</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Requirements</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <ul>
+                                    <li><strong>Performance</strong>: $O(1)$ lookup complexity using HashMap.</li>
+                                    <li><strong>Reliability</strong>: Zero application crashes through exception catching.</li>
+                                    <li><strong>Extensibility</strong>: Subclass design simplifies adding new types.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><strong>Maintainability</strong>: Layered separation separates UI from services.</li>
+                                    <li><strong>Data Integrity</strong>: Sanitizes name inputs using regex checks.</li>
+                                    <li><strong>Resilience</strong>: Skips malformed rows during import while continuing execution.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 9 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 10: Technology Stack -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Technology Infrastructure Stack</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Technology</span>
+                    </div>
+                    <div class="slide-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Technology Component</th>
+                                    <th>Selection Justification</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Java 17 JDK</strong></td>
+                                    <td>Enables clean switch expression yield options and modern runtime benefits.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>HashMap Collection</strong></td>
+                                    <td>Handles memory indexing by unique IDs, reducing lookup times.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>java.nio.file Package</strong></td>
+                                    <td>Standardizes paths and structures compared to older file APIs.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>BufferedReader / Writer</strong></td>
+                                    <td>Minimizes disk reads by using memory I/O streaming buffers.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 10 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 11: SDLC Methodology -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">SDLC Waterfall Lifecycle</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Process</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <p>We selected the Waterfall SDLC model due to defined targets and fixed dependencies.</p>
+                                <ul>
+                                    <li>Phase 1: Requirements Gathering</li>
+                                    <li>Phase 2: Architectural Design</li>
+                                    <li>Phase 3: Implementation</li>
+                                    <li>Phase 4: Functional Testing</li>
+                                </ul>
+                            </div>
+                            <pre style="font-size: 0.75rem;">
+Requirements [Week 1-2]
+     │
+     ▼
+Architectural Design [Week 3-4]
+     │
+     ▼
+Source Implementation [Week 5-8]
+     │
+     ▼
+Testing & Verification [Week 9-10]</pre>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 11 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 12: System Architecture -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Overall Layered Architecture</span>
+                            <span class="member-badge badge-m1">Member 1</span>
+                        </div>
+                        <span class="slide-category">Architecture</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.75rem; text-align: center;">
+┌────────────────────────────────────────────────────────┐
+│                   Presentation Layer                   │
+│                       Main.java                        │
+└───────────────────────────┬────────────────────────────┘
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                     Service Layer                      │
+│        EmployeeService | PayrollService | FileService  │
+└───────────────────────────┬────────────────────────────┘
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                     Utility Layer                      │
+│           PayrollCalculator | ValidationUtil           │
+└───────────────────────────┬────────────────────────────┘
+                            ▼
+┌────────────────────────────────────────────────────────┐
+│                      Model Layer                       │
+│    Employee  ->  RegularEmployee, Contract, Intern     │
+└────────────────────────────────────────────────────────┘</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 12 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 13: Project Structure -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Physical Directory Structure</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <pre style="font-size: 0.7rem; line-height: 1.2;">
+PayrollSystem/
+├── src/
+│   ├── Main.java
+│   ├── constants/
+│   │   └── PayrollConstants.java
+│   ├── enums/
+│   │   └── EmployeeType.java
+│   ├── exception/
+│   │   ├── DuplicateEmployeeException.java
+│   │   ├── EmployeeNotFoundException.java
+│   │   └── InvalidSalaryException.java ...
+│   ├── model/
+│   │   ├── Employee.java
+│   │   ├── RegularEmployee.java ...
+│   ├── service/
+│   │   ├── EmployeeService.java ...
+│   └── util/
+│       └── PayrollCalculator.java
+└── data/
+    └── employees.txt</pre>
+                            <div>
+                                <p><strong>Key Principles:</strong></p>
+                                <ul>
+                                    <li>Packages organized by structural role</li>
+                                    <li>Models separated from operations logic</li>
+                                    <li>Data folders stored outside root folders</li>
+                                    <li>Compiled files stored in <code>out/</code> directory</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 13 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 14: Module Explanation -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Module Responsibilities</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Package Name</th>
+                                    <th>Core Operational Responsibility</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>model</strong></td>
+                                    <td>Defines properties, getters, and abstract dynamic salary calculation rules.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>service</strong></td>
+                                    <td>Manages in-memory maps, formatting, and file systems.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>util</strong></td>
+                                    <td>Contains calculation math formulas and validates inputs.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>exception</strong></td>
+                                    <td>Defines custom exceptions for handling errors.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 14 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 15: UML Class Diagram -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">UML Class Diagram Spec</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <pre style="font-size: 0.65rem; line-height: 1.2;">
+        +-------------------------+
+        |       Employee          |
+        |      (Abstract)         |
+        +-------------------------+
+        | - id, name, salary      |
+        | + calculateSalary()*    |
+        +------------▲------------+
+                     │
+         ┌───────────┼───────────┐
+   +-----┴----+ +----+-----+ +───┴────+
+   | Regular  | | Contract | | Intern |
+   | Employee | | Employee | |        |
+   +----------+ +----------+ +--------+</pre>
+                            <div>
+                                <p><strong>Relationships Model:</strong></p>
+                                <ul>
+                                    <li><strong>Generalization</strong>: Subclasses inherit attributes from abstract parent class.</li>
+                                    <li><strong>Association</strong>: Services use model entities.</li>
+                                    <li><strong>Aggegation</strong>: <code>EmployeeService</code> aggregates <code>Employee</code> references within a <code>HashMap</code>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 15 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 16: Use Case Diagram -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">System Use Cases</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <p><strong>Primary Actor:</strong></p>
+                                <p>Admin / HR Operator manages the system.</p>
+                                <p><strong>Key System Interactions:</strong></p>
+                                <ul>
+                                    <li>Imports bulk CSV data</li>
+                                    <li>Creates new records</li>
+                                    <li>Runs payroll calculations</li>
+                                    <li>Exports files</li>
+                                </ul>
+                            </div>
+                            <pre style="font-size: 0.75rem; line-height: 1.25;">
+  Admin Actor
+     │
+     ├─► (Bulk Import CSV)
+     ├─► (Add Employee)
+     ├─► (Update Record)
+     ├─► (Generate Payslip)
+     └─► (Export Data File)</pre>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 16 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 17: Sequence Diagram (Generate Payslip) -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Sequence Diagram - Generate Payslip</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.65rem; line-height: 1.2;">
+Admin         Main         EmployeeService     PayrollService      FileService
+ │             │                 │                   │                  │
+ ├───[Choice]─►│                 │                   │                  │
+ │             ├───[Search]─────►│                   │                  │
+ │             │◄──[Return Object]─                  │                  │
+ │             ├───[Generate]───────────────────────►│                  │
+ │             │                                     ├──[polymorphic]──┐│
+ │             │                                     │  calculateSalary││
+ │             │                                     │◄────────────────┘│
+ │             │◄──[Format Result]───────────────────│                  │
+ │◄──[Render]──┤                                     │                  │
+ ├───[Export]─►│                                     │                  │
+               ├───[Write File]────────────────────────────────────────►│</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 17 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 18: Activity Diagram (Add Employee) -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Activity Flow - Add Employee</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.7rem; line-height: 1.2; text-align: center;">
+[Start] ──► [Prompt Input Fields] ──► [Validation Check] 
+                                             │
+                       ┌─────────────────────┴─────────────────────┐
+                    Valid?                                      Invalid?
+                       ▼                                           ▼
+             [Add to HashMap]                              [Throw Exception]
+                       │                                           │
+                       ▼                                           ▼
+            [Confirm Success]                              [Display Message]
+                       │                                           │
+                       └─────────────────────┬─────────────────────┘
+                                             ▼
+                                           [End]</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 18 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 19: Component Diagram -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Component Dependencies</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.7rem; text-align: center;">
+┌─────────────────┐       ┌──────────────────────────────┐
+│  Presentation   │ ──►   │       Service Layer          │
+│   (Main.java)   │       │ (Employee, Payroll, File)    │
+└─────────────────┘       └──────────────┬───────────────┘
+                                         │
+                                         ▼
+┌─────────────────┐       ┌──────────────────────────────┐
+│   Utilities     │ ◄──   │    Domain Layer / models     │
+│ (Calc / Valid)  │       │ (Employee Hierarchy)       │
+└─────────────────┘       └──────────────────────────────┘</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 19 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 20: Package Diagram -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Logical Package Dependencies</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <p><strong>Layer Decoupling Features:</strong></p>
+                                <ul>
+                                    <li><code>enums</code> & <code>exception</code> have zero external dependencies.</li>
+                                    <li><code>util</code> package functions execute independently of model operations.</li>
+                                    <li>Main acts as the central coordinator.</li>
+                                </ul>
+                            </div>
+                            <pre style="font-size: 0.7rem; line-height: 1.3;">
+   [Main UI]
+       │
+       ├─► [service] ──► [model]
+       │                    ▲
+       ├─► [util] ──────────┤
+       │                    │
+       └─► [exception] ─────┘</pre>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 20 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 21: Deployment Diagram -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">System Deployment Node</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.7rem; text-align: center;">
+┌────────────────────────────────────────────────────────┐
+│                   User's Local Machine                 │
+│                                                        │
+│   ┌────────────────────────────────────────────────┐   │
+│   │                 JVM Sandbox                    │   │
+│   │                                                │   │
+│   │  [PayrollSystem.jar] ◄──► [Local Console UI]   │   │
+│   │          │                                     │   │
+│   └──────────┼─────────────────────────────────────┘   │
+│              ▼                                         │
+│   [data/employees.txt] (CSV format persistent files)   │
+└────────────────────────────────────────────────────────┘</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 21 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 22: State Diagram (Employee) -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Employee Entity Lifecycle States</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.75rem; text-align: center;">
+[*] ──► [Created in memory] 
+             │
+             ▼
+        [Validated]
+             │
+             ▼
+        [Active in HashMap] ◄──► [Updated Details]
+             │
+             ▼
+        [Removed / Deleted] ──► [*]</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 22 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 23: Data Flow Diagrams -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Data Flow (DFD Level 0 & 1)</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">UML Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div class="card">
+                                <div class="card-title">Level 0: Context DFD</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Main coordinate inputs/outputs between User interactions and local CSV text files.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Level 1: System DFD</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Separates CRUD data updates, validation logic, calculations, and I/O tasks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 23 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 24: Payroll Processing Flowchart -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Payroll Calculation Flowchart</span>
+                            <span class="member-badge badge-m2">Member 2</span>
+                        </div>
+                        <span class="slide-category">Processes</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.65rem; line-height: 1.15; text-align: center;">
+                 [Get Base salary & Leaves]
+                             │
+                             ▼
+                    [Check subclass Type]
+                             │
+             ┌───────────────┼───────────────┐
+          REGULAR        CONTRACT         INTERN
+             ▼               ▼               ▼
+     [Add 20% Allow]  [Add 10% Bonus]  [Stipend As-Is]
+             │               │               │
+             ▼               ▼               │
+     [Deduct 10% Tax]  [Exempt Tax]          │
+             │               │               │
+             ▼               ▼               ▼
+     [Deduct Leave]   [Deduct Leave]      [Done]
+             │               │
+             └───────┬───────┘
+                     ▼
+                 [Net Salary]</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 24 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 25: File Processing Flowchart -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">File Import Flowchart</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Processes</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.75rem; text-align: center;">
+[Start Loop] ──► [Read Line] ──► [Try Parsing Split Columns]
+                                      │
+                 ┌────────────────────┴────────────────────┐
+              Success?                                  Error?
+                 ▼                                         ▼
+         [Sanitize Inputs]                        [Record Skipped Info]
+                 │                                         │
+                 ▼                                         v
+         [Add to HashMap]                         [Read Next line]
+                 │                                         │
+                 └────────────────────┬────────────────────┘
+                                      ▼
+                               [Print Summary]</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 25 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 26: Salary Rules -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Salary Computation Formulas</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Salary Logic</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-3">
+                            <div class="card">
+                                <div class="card-title">Regular Employee</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Base + 20% Allowance - 10% Tax - Leaves Deduction.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Contract Employee</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Base + 10% Bonus - Leaves Deduction. (Exempt Tax).</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Intern Trainee</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Flat stipend payment. (No tax, no leaves deductions).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 26 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 27: OOP Concepts -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">OOP Pillars Demonstration</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">OOP Logic</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <ul>
+                                    <li><strong>Abstraction</strong>: Parent class defines abstract salary calculations.</li>
+                                    <li><strong>Encapsulation</strong>: Private fields accessible only via getters.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><strong>Inheritance</strong>: Subclasses share properties of parent class.</li>
+                                    <li><strong>Polymorphism</strong>: Java resolves subclass salary calculations at runtime.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 27 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 28: SOLID Principles -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">SOLID Design Patterns</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Design</span>
+                    </div>
+                    <div class="slide-body">
+                        <table style="width: 100%; border: 1px solid var(--border-color);">
+                            <thead>
+                                <tr>
+                                    <th>SOLID Principle</th>
+                                    <th>Implementation Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Single Responsibility</strong></td>
+                                    <td>Calculators handle math, services manage database records.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Open/Closed</strong></td>
+                                    <td>New employee types extend the base class without code modification.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Liskov Substitution</strong></td>
+                                    <td>All subtypes replace the parent class without error.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 28 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 29: Java Features Used -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Java Features Implemented</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Technology</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-2">
+                            <div>
+                                <ul>
+                                    <li><strong>Switch Expressions</strong>: Arrow syntax and yield keywords.</li>
+                                    <li><strong>NIO Package</strong>: Modern path management utilities.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul>
+                                    <li><strong>Generics</strong>: Strongly typed data mappings in collections.</li>
+                                    <li><strong>Try-With-Resources</strong>: Handles clean closure of files without leaks.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 29 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 30: Exception Handling -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Custom Exception Hierarchy</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Exceptions</span>
+                    </div>
+                    <div class="slide-body">
+                        <pre style="font-size: 0.75rem; text-align: center;">
+java.lang.Exception
+   │
+   ├── DuplicateEmployeeException  (Blocks duplicate IDs)
+   ├── EmployeeNotFoundException   (Thrown on search/delete error)
+   ├── InvalidSalaryException      (Validation constraints)
+   ├── InvalidLeaveException       (Validation constraints)
+   └── FileProcessingException     (Chained I/O failures)</pre>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 30 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 31: Collections & HashMap Complexity -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Collections & Complexity Analysis</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Algorithms</span>
+                    </div>
+                    <div class="slide-body">
+                        <table style="width: 100%; border: 1px solid var(--border-color);">
+                            <thead>
+                                <tr>
+                                    <th>Operation</th>
+                                    <th>Internal Algorithm</th>
+                                    <th>Average Complexity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Search / Indexing</strong></td>
+                                    <td>HashMap key matching</td>
+                                    <td>$O(1)$ constant time</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Insert / CRUD update</strong></td>
+                                    <td>HashMap put logic</td>
+                                    <td>$O(1)$ constant time</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Sorting Profiles</strong></td>
+                                    <td>Array elements sorting</td>
+                                    <td>$O(N \log N)$ time</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 31 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 32: System Verification & Testing -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">System Verification & Testing</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Testing</span>
+                    </div>
+                    <div class="slide-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Test Feature</th>
+                                    <th>Verification Inputs</th>
+                                    <th>Expected Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Negative Salary Bounds</strong></td>
+                                    <td>Wages = <code>-5000</code></td>
+                                    <td>Throws <code>InvalidSalaryException</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Negative Leave Bounds</strong></td>
+                                    <td>Leaves = <code>40</code></td>
+                                    <td>Throws <code>InvalidLeaveException</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Duplicate ID Collision</strong></td>
+                                    <td>Adding ID <code>101</code> again</td>
+                                    <td>Throws <code>DuplicateEmployeeException</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 32 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 33: Live Demonstration -->
+                <div class="slide title-slide">
+                    <div class="member-badge badge-m3" style="margin-bottom: 10px;">Member 3</div>
+                    <div class="title-banner">System Demonstration</div>
+                    <div class="subtitle">Live Console Execution Walkthrough</div>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 600px; margin-top: 10px;">
+                        Running bulk imports, displaying database records, verifying input validation constraints, generating payslips, and exporting reports.
+                    </p>
+                    <div class="slide-footer">
+                        <span>Slide 33 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 34: Future Enhancements -->
+                <div class="slide">
+                    <div class="slide-header">
+                        <div class="slide-title-wrapper">
+                            <span class="slide-title">Future Enhancements</span>
+                            <span class="member-badge badge-m3">Member 3</span>
+                        </div>
+                        <span class="slide-category">Roadmap</span>
+                    </div>
+                    <div class="slide-body">
+                        <div class="grid-3">
+                            <div class="card">
+                                <div class="card-title">Database</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Integrate MySQL and Hibernate ORM for persistence.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Spring Boot</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Migrate to REST APIs secured with JWT auth.</p>
+                            </div>
+                            <div class="card">
+                                <div class="card-title">Web UI</div>
+                                <p style="font-size: 0.8rem; color: var(--text-secondary);">Build a modern dashboard using React or Angular.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-footer">
+                        <span>Slide 34 / 35</span>
+                    </div>
+                </div>
+
+                <!-- SLIDE 35: Q/A & Conclusion -->
+                <div class="slide title-slide">
+                    <div class="member-badge badge-m3" style="margin-bottom: 10px;">Member 3</div>
+                    <div class="title-banner">Thank You!</div>
+                    <div class="subtitle">Conclusion & Q/A Session</div>
+                    <p style="color: var(--text-secondary); max-width: 500px; margin-top: 10px;">Open floor to the panel for questions on design patterns, implementation choices, or code walk-throughs.</p>
+                    <div class="slide-footer">
+                        <span>Slide 35 / 35</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- UI Navigation Controls -->
+            <div class="controls-bar">
+                <div class="left-controls">
+                    <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+                        &larr; Prev
+                    </button>
+                    <span class="slide-counter" id="counter">Slide 1 of 35</span>
+                    <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+                        Next &rarr;
+                    </button>
+                </div>
+                
+                <div class="center-controls">
+                    <select class="slide-select" id="navigator" onchange="jumpToSlide(this.value)">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div class="right-controls">
+                    <button class="nav-btn toggle-notes-btn" onclick="toggleNotes()">
+                        💡 Presenter Notes (N)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Presenter Notes Drawer -->
+    <div class="notes-drawer" id="notesDrawer">
+        <div class="notes-grid">
+            <div class="notes-sidebar">
+                <div class="notes-title" style="color: var(--accent-blue);">Presenter Info</div>
+                <div id="presenterInfo" style="font-weight: 600; color: #fff;">Member 1</div>
+                <div class="notes-title" style="color: var(--accent-blue); margin-top: 15px;">Code Files</div>
+                <div id="codeFiles" style="font-family: 'Fira Code', monospace; color: #d1d5db;">Main.java</div>
+            </div>
+            <div>
+                <div class="notes-title">Presentation Script & Q&A Tips</div>
+                <div class="notes-body" id="notesContent">
+                    Welcome the panel. Introduce the title, student team members, guided professors, and basic capstone summary goals. Explain that this is a production-quality enterprise-grade payroll design.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Presentation Logic -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+        const navigatorSelect = document.getElementById('navigator');
+        const notesDrawer = document.getElementById('notesDrawer');
+        const notesContent = document.getElementById('notesContent');
+        const presenterInfo = document.getElementById('presenterInfo');
+        const codeFiles = document.getElementById('codeFiles');
+
+        // Presentation Metadata by Slide
+        const slideMetadata = [
+            // Slide 1
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Greet the examiners. Introduce the team, college, guide, and project title. State that we are presenting a Java 17 enterprise-grade console application designed using strict layered architecture. Pass control to Member 1."
+            },
+            // Slide 2
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Briefly run through the agenda: Part 1 covers introduction & requirements, Part 2 reviews the UML diagrams and flowcharts, and Part 3 walks through the implementation, Java features, and live demo."
+            },
+            // Slide 3
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Explain the problem: spreadsheets lack input verification, allow negative wages, fail to block duplicate IDs, scatter data across separate files, and are prone to formula editing errors."
+            },
+            // Slide 4
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Elaborate on spreadsheet drawbacks: human error, lack of validation, and the absence of a structured audit trail. Focus on how manual data entry slows down operations."
+            },
+            // Slide 5
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Introduce the proposed system: a Java 17 console application using a 4-tier layered architecture, dynamic calculations, HashMap indexing, and custom exceptions."
+            },
+            // Slide 6
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Review project objectives: implementing clean OOP patterns, eliminating complex conditional branches, using HashMap for fast lookups, wrapping failures in custom exceptions, and using NIO for file processing."
+            },
+            // Slide 7
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Explain boundaries and scope. In-scope covers CRUD, employee subtypes, and CSV processing. Out-of-scope covers DB integration, GUI dashboards, and JWT authorization, which are listed in the future roadmap."
+            },
+            // Slide 8
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Detail functional requirements: CRUD, payroll calculations, payslip formatting, and file import/export operations."
+            },
+            // Slide 9
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Highlight non-functional requirements (NFRs): O(1) performance using HashMap, stability via exception catching, extensibility via subclass design, and data integrity via regex validation."
+            },
+            // Slide 10
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Explain the tech stack: Java 17, HashMap, java.nio.file, and BufferedReader/Writer. Q: Why Java 17? A: Java 17 switch expressions are cleaner and support arrow syntax."
+            },
+            // Slide 11
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Discuss the Waterfall SDLC model, explaining that we chose this linear-sequential approach because our project targets and requirements were fixed from the start."
+            },
+            // Slide 12
+            {
+                presenter: "Member 1",
+                files: "Main.java",
+                notes: "Explain the Layered Architecture diagram: Presentation, Service, Utility, and Model layers. Mention that each layer only depends on the layer below it, implementing Dependency Inversion."
+            },
+            // Slide 13
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Take over presentation. Walk through the physical folder structure, explaining that packages are organized by structural role to separate the model layer from operations logic."
+            },
+            // Slide 14
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain module-level responsibilities: model defines properties, service manages data and files, and util handles math and validation."
+            },
+            // Slide 15
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the UML Class Diagram: Employee is the abstract parent class, extended by Regular, Contract, and Intern subclasses. Explain the relationships: generalization, association, and aggregation."
+            },
+            // Slide 16
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Use Case Diagram, showing how the Admin/HR actor manages the system through bulk import, employee creation, and payslip generation."
+            },
+            // Slide 17
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Detail the Sequence Diagram for generating a payslip, explaining how dynamic dispatch allows calling subclass calculateSalary() implementations at runtime."
+            },
+            // Slide 18
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Activity Flow Diagram for adding an employee, highlighting decision nodes and validation steps."
+            },
+            // Slide 19
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Component Diagram, illustrating the dependencies between the UI, services, utilities, and models."
+            },
+            // Slide 20
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Walk through the Package Diagram and explain that keeping enums, exception, and constants packages free of external dependencies prevents circular references."
+            },
+            // Slide 21
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Deployment Diagram: the application JAR runs in the JVM sandbox on the user's local machine and persists data to a local CSV file."
+            },
+            // Slide 22
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Employee State Diagram, detailing transitions from Created, Validated, Active, and Deleted states."
+            },
+            // Slide 23
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Cover the Level 0 and Level 1 DFDs, showing how data flows between system processes and local storage files."
+            },
+            // Slide 24
+            {
+                presenter: "Member 2",
+                files: "Employee.java\nRegularEmployee.java\nContractEmployee.java\nIntern.java\nEmployeeService.java",
+                notes: "Explain the Payroll Calculation Flowchart, detailing the distinct salary calculation rules for Regular, Contract, and Intern employees."
+            },
+            // Slide 25
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Take over presentation. Explain the resilient file import process, showing how formatting errors are skipped without crashing the system."
+            },
+            // Slide 26
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Detail the salary calculation rules: Regular (Base + 20% - 10% tax - leaves), Contract (Base + 10% - leaves), Intern (Flat stipend)."
+            },
+            // Slide 27
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Explain how OOP concepts are demonstrated: abstraction in Employee class, encapsulation with private fields, inheritance in subclasses, and polymorphism in calculateSalary()."
+            },
+            // Slide 28
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Review SOLID design patterns: SRP (decoupled calculators and services), OCP (adding employee types without code changes), and LSP (subclass substitution)."
+            },
+            // Slide 29
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Discuss Java features: switch expressions with arrow syntax, NIO package, generic collections, and try-with-resources."
+            },
+            // Slide 30
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Explain the custom exception hierarchy: DuplicateEmployee, EmployeeNotFound, InvalidSalary, InvalidLeave, and FileProcessing exceptions."
+            },
+            // Slide 31
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Perform complexity analysis: O(1) constant time lookups using HashMap, compared to O(N log N) sorting routines for displaying lists."
+            },
+            // Slide 32
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Show the testing matrix, explaining validation checks for negative salary, negative leaves, and duplicate ID collisions."
+            },
+            // Slide 33
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Conduct the live demo walkthrough. Run options in order: import CSV, view employees, test validation checks, and generate and export a payslip file."
+            },
+            // Slide 34
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Explain future enhancements: replacing the HashMap database with MySQL/Hibernate, migrating to Spring Boot REST APIs, and adding a React web client."
+            },
+            // Slide 35
+            {
+                presenter: "Member 3",
+                files: "PayrollService.java\nPayrollCalculator.java\nValidationUtil.java\nFileService.java\nExceptions, Constants, Enums",
+                notes: "Conclude the presentation. Greet the examiners, summarize deliverables, and open the floor to the panel for any questions."
+            }
+        ];
+
+        // Populate Select Navigator Dropdown options
+        slides.forEach((slide, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = `Slide ${idx + 1}: ${slide.querySelector('.slide-title') ? slide.querySelector('.slide-title').textContent : 'Title Slide'}`;
+            navigatorSelect.appendChild(opt);
+        });
+
+        function updateSlideUI() {
+            // Remove active status from all slides
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active', 'prev');
+                if (idx < currentSlide) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Set active slide
+            slides[currentSlide].classList.add('active');
+
+            // Set button enable states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            // Set Counter text
+            counter.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+            navigatorSelect.value = currentSlide;
+
+            // Update Metadata Info (Presenter, Files, Notes)
+            const meta = slideMetadata[currentSlide];
+            presenterInfo.textContent = meta.presenter;
+            codeFiles.innerHTML = meta.files.replace(/\n/g, '<br>');
+            notesContent.innerHTML = meta.notes;
+
+            // Dynamically change badge border highlight style
+            const side = document.querySelector('.notes-sidebar');
+            if (meta.presenter === "Member 1") {
+                side.style.borderRight = "3px solid var(--member1-color)";
+                presenterInfo.style.color = "var(--member1-color)";
+            } else if (meta.presenter === "Member 2") {
+                side.style.borderRight = "3px solid var(--member2-color)";
+                presenterInfo.style.color = "var(--member2-color)";
+            } else {
+                side.style.borderRight = "3px solid var(--member3-color)";
+                presenterInfo.style.color = "var(--member3-color)";
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        function jumpToSlide(idx) {
+            currentSlide = parseInt(idx);
+            updateSlideUI();
+        }
+
+        function toggleNotes() {
+            notesDrawer.classList.toggle('open');
+        }
+
+        // Add keyboard control listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'ArrowRight' || e.code === 'Space') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.code === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'n' || e.key === 'N') {
+                e.preventDefault();
+                toggleNotes();
+            }
+        });
+
+        // Initialize UI
+        updateSlideUI();
+    </script>
+</body>
+</html>

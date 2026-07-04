@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Payroll System - Complete Code Explanation Guide</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #0f766e;
+            --text-main: #334155;
+            --text-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --code-bg: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .guide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 60px 80px;
+        }
+
+        /* ── Cover Page ──────────────────────────────────────────────────── */
+        .cover-page {
+            text-align: center;
+            padding: 100px 0;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 60px;
+        }
+
+        .cover-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 60px;
+            font-weight: 500;
+        }
+
+        /* ── Typography & Headings ────────────────────────────────────────── */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            page-break-before: always;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* ── Tables ──────────────────────────────────────────────────────── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--bg-light);
+        }
+
+        /* ── Code Display ────────────────────────────────────────────────── */
+        pre {
+            font-family: 'Fira Code', monospace;
+            background-color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 18px;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin-bottom: 25px;
+            line-height: 1.45;
+            color: #f8fafc;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        .inline-code {
+            background-color: var(--code-bg);
+            color: #b91c1c;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .explanation-box {
+            background-color: rgba(15, 118, 110, 0.03);
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        /* ── Print Setup ─────────────────────────────────────────────────── */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+
+            .guide-container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            pre, table, .explanation-box {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="guide-container">
+        
+        <!-- ── Cover Page ──────────────────────────────────────────────── -->
+        <div class="cover-page">
+            <div class="cover-title">EMPLOYEE PAYROLL SYSTEM</div>
+            <div class="cover-subtitle">Line-by-Line Code Explanation & Source Manual</div>
+            <p style="color: var(--text-main); font-size: 1rem; max-width: 600px; margin: 20px auto 0 auto;">
+                A detailed breakdown explaining the architecture, purpose, and implementation logic of every function in the codebase.
+            </p>
+        </div>
+
+        <!-- ── SECTION 1: constants/ ────────────────────────────────────── -->
+        <h1>1. Package: constants</h1>
+        
+        <h2>1.1 PayrollConstants.java</h2>
+        <p><strong>Purpose:</strong> Centrally stores all business calculation rates, file system paths, console table format configurations, and boundary limits. This avoids scattering "magic numbers" across different Java classes.</p>
+        
+        <pre><code>package constants;
+
+public final class PayrollConstants {
+
+    private PayrollConstants() { } // Prevents instantiation
+
+    public static final double REGULAR_ALLOWANCE_RATE = 0.20;
+    public static final double REGULAR_TAX_RATE       = 0.10;
+    public static final double CONTRACT_BONUS_RATE    = 0.10;
+    public static final double LEAVE_DEDUCTION_PER_DAY = 1.0 / 30.0;
+
+    public static final String EMPLOYEE_DATA_FILE = "data/employees.txt";
+    public static final String PAYSLIP_DIRECTORY  = "data/payslips";
+
+    public static final String CSV_DELIMITER   = ",";
+    public static final int    CSV_COLUMN_COUNT = 7;
+
+    public static final String HORIZONTAL_RULE =
+            "------------------------------------------------------------";
+
+    public static final String DOUBLE_RULE =
+            "============================================================";
+
+    public static final String TABLE_HEADER_FORMAT = "%-8s %-20s %-12s %-15s %-10s %-10s%n";
+    public static final String TABLE_ROW_FORMAT    = "%-8d %-20s %-12s %-15s %-10s %-10.2f%n";
+
+    public static final int    MAX_LEAVE_DAYS  = 30;
+    public static final int    MIN_EMPLOYEE_ID = 1;
+    public static final String NAME_PATTERN    = "^[a-zA-Z ]+$";
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Key Code Walkthrough:</strong>
+            <ul>
+                <li><code>private PayrollConstants()</code>: A private constructor prevents other classes from instantiating this class (i.e. writing <code>new PayrollConstants()</code>), as it only contains static members.</li>
+                <li><code>final</code> Class Modifer: Prevents sub-classing or extending this constants collection.</li>
+                <li><code>static final</code> Fields: Allocates these variables as immutable constants that reside in JVM Method Memory.</li>
+            </ul>
+        </div>
+
+        <!-- ── SECTION 2: enums/ ────────────────────────────────────────── -->
+        <h1>2. Package: enums</h1>
+        
+        <h2>2.1 EmployeeType.java</h2>
+        <p><strong>Purpose:</strong> Restricts employee classification categories to three valid types: <code>REGULAR</code>, <code>CONTRACT</code>, and <code>INTERN</code>, preventing runtime spelling mistakes.</p>
+        
+        <pre><code>package enums;
+
+public enum EmployeeType {
+
+    REGULAR("Regular"),
+    CONTRACT("Contract"),
+    INTERN("Intern");
+
+    private final String displayName;
+
+    EmployeeType(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public static EmployeeType fromString(String type) {
+        if (type == null || type.isBlank()) {
+            throw new IllegalArgumentException("Employee type cannot be null or blank.");
+        }
+        return switch (type.trim().toUpperCase()) {
+            case "REGULAR"  -> REGULAR;
+            case "CONTRACT" -> CONTRACT;
+            case "INTERN"   -> INTERN;
+            default -> throw new IllegalArgumentException(
+                    "Unknown employee type: '" + type + "'. Expected REGULAR, CONTRACT, or INTERN.");
+        };
+    }
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Function Explanations:</strong>
+            <ul>
+                <li><code>fromString(String type)</code>: Evaluates input text, normalizes it via <code>trim().toUpperCase()</code>, and uses a Java 17 switch expression to return the matching enum constant. If the input does not match, it throws an <code>IllegalArgumentException</code>.</li>
+                <li><code>getDisplayName()</code>: Returns the formatted display name (e.g., "Regular") for rendering in console tables and payslips.</li>
+            </ul>
+        </div>
+
+        <!-- ── SECTION 3: model/ ────────────────────────────────────────── -->
+        <h1>3. Package: model</h1>
+        
+        <h2>3.1 Employee.java (Abstract parent class)</h2>
+        <p><strong>Purpose:</strong> Acts as the parent model class, encapsulating the common properties of all employees. It defines the abstract contract method <code>calculateSalary()</code>, which child subclasses must override.</p>
+        
+        <pre><code>package model;
+
+import enums.EmployeeType;
+import java.util.Objects;
+
+public abstract class Employee {
+
+    private int id;
+    private String name;
+    private String department;
+    private String designation;
+    private double baseSalary;
+    private int leaveTaken;
+
+    protected Employee() { }
+
+    protected Employee(int id, String name, String department,
+                       String designation, double baseSalary, int leaveTaken) {
+        this.id = id;
+        this.name = Objects.requireNonNull(name, "Name cannot be null");
+        this.department = Objects.requireNonNull(department, "Department cannot be null");
+        this.designation = Objects.requireNonNull(designation, "Designation cannot be null");
+        this.baseSalary = baseSalary;
+        this.leaveTaken = leaveTaken;
+    }
+
+    public abstract double calculateSalary();
+    public abstract EmployeeType getEmployeeType();
+
+    public int getId()              { return id; }
+    public String getName()         { return name; }
+    public String getDepartment()   { return department; }
+    public String getDesignation()  { return designation; }
+    public double getBaseSalary()   { return baseSalary; }
+    public int getLeaveTaken()      { return leaveTaken; }
+
+    public void setId(int id)                      { this.id = id; }
+    public void setName(String name)               { this.name = name; }
+    public void setDepartment(String department)    { this.department = department; }
+    public void setDesignation(String designation)  { this.designation = designation; }
+    public void setBaseSalary(double baseSalary)    { this.baseSalary = baseSalary; }
+    public void setLeaveTaken(int leaveTaken)       { this.leaveTaken = leaveTaken; }
+
+    @Override
+    public String toString() {
+        return String.format("Employee{id=%d, name='%s', dept='%s', designation='%s', type=%s, salary=%.2f, leave=%d}",
+                id, name, department, designation, getEmployeeType().getDisplayName(), baseSalary, leaveTaken);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee other = (Employee) o;
+        return id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Key Details:</strong>
+            <ul>
+                <li><code>Objects.requireNonNull()</code>: Validates that inputs are non-null on construction, preventing <code>NullPointerException</code>s during instantiation.</li>
+                <li><code>equals()</code> and <code>hashCode()</code>: Overridden using the employee ID as the unique business key, ensuring that the <code>HashMap</code> can accurately index and identify duplicate employees.</li>
+            </ul>
+        </div>
+
+        <h2>3.2 RegularEmployee.java (Concrete Subclass)</h2>
+        <p><strong>Purpose:</strong> Implements the salary calculation rules for full-time regular employees.</p>
+        <pre><code>package model;
+
+import enums.EmployeeType;
+import util.PayrollCalculator;
+
+public class RegularEmployee extends Employee {
+
+    public RegularEmployee(int id, String name, String department,
+                           String designation, double baseSalary, int leaveTaken) {
+        super(id, name, department, designation, baseSalary, leaveTaken);
+    }
+
+    @Override
+    public double calculateSalary() {
+        return PayrollCalculator.calculateNetSalary(this);
+    }
+
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.REGULAR;
+    }
+}</code></pre>
+
+        <h2>3.3 ContractEmployee.java (Concrete Subclass)</h2>
+        <p><strong>Purpose:</strong> Implements the salary calculation rules for contract employees.</p>
+        <pre><code>package model;
+
+import enums.EmployeeType;
+import util.PayrollCalculator;
+
+public class ContractEmployee extends Employee {
+
+    public ContractEmployee(int id, String name, String department,
+                            String designation, double baseSalary, int leaveTaken) {
+        super(id, name, department, designation, baseSalary, leaveTaken);
+    }
+
+    @Override
+    public double calculateSalary() {
+        return PayrollCalculator.calculateNetSalary(this);
+    }
+
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.CONTRACT;
+    }
+}</code></pre>
+
+        <h2>3.4 Intern.java (Concrete Subclass)</h2>
+        <p><strong>Purpose:</strong> Implements the stipend calculation rules for trainees.</p>
+        <pre><code>package model;
+
+import enums.EmployeeType;
+import util.PayrollCalculator;
+
+public class Intern extends Employee {
+
+    public Intern(int id, String name, String department,
+                  String designation, double baseSalary, int leaveTaken) {
+        super(id, name, department, designation, baseSalary, leaveTaken);
+    }
+
+    @Override
+    public double calculateSalary() {
+        return PayrollCalculator.calculateNetSalary(this);
+    }
+
+    @Override
+    public EmployeeType getEmployeeType() {
+        return EmployeeType.INTERN;
+    }
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Polymorphism Mechanics:</strong>
+            All three subclasses extend the <code>Employee</code> base class and override <code>calculateSalary()</code>, redirecting the execution to the static method <code>PayrollCalculator.calculateNetSalary(this)</code>.
+        </div>
+
+        <!-- ── SECTION 4: service/ ──────────────────────────────────────── -->
+        <h1>4. Package: service</h1>
+        
+        <h2>4.1 EmployeeService.java</h2>
+        <p><strong>Purpose:</strong> Manages CRUD operations in memory using a <code>HashMap</code> repository.</p>
+        <pre><code>package service;
+
+import exception.DuplicateEmployeeException;
+import exception.EmployeeNotFoundException;
+import model.Employee;
+import java.util.*;
+
+public class EmployeeService {
+
+    private final Map&lt;Integer, Employee&gt; employeeMap;
+
+    public EmployeeService() {
+        this.employeeMap = new HashMap&lt;&gt;();
+    }
+
+    public void addEmployee(Employee employee) throws DuplicateEmployeeException {
+        Objects.requireNonNull(employee, "Employee cannot be null.");
+        int id = employee.getId();
+
+        if (employeeMap.containsKey(id)) {
+            throw new DuplicateEmployeeException("Employee with ID " + id + " already exists.");
+        }
+        employeeMap.put(id, employee);
+    }
+
+    public void updateEmployee(Employee employee) throws EmployeeNotFoundException {
+        Objects.requireNonNull(employee, "Employee cannot be null.");
+        int id = employee.getId();
+
+        if (!employeeMap.containsKey(id)) {
+            throw new EmployeeNotFoundException("Cannot update - Employee ID " + id + " not found.");
+        }
+        employeeMap.put(id, employee);
+    }
+
+    public void deleteEmployee(int id) throws EmployeeNotFoundException {
+        if (!employeeMap.containsKey(id)) {
+            throw new EmployeeNotFoundException("Cannot delete - Employee ID " + id + " not found.");
+        }
+        employeeMap.remove(id);
+    }
+
+    public Employee searchEmployee(int id) throws EmployeeNotFoundException {
+        Employee employee = employeeMap.get(id);
+        if (employee == null) {
+            throw new EmployeeNotFoundException("Employee with ID " + id + " not found.");
+        }
+        return employee;
+    }
+
+    public List&lt;Employee&gt; viewAllEmployees() {
+        List&lt;Employee&gt; employees = new ArrayList&lt;&gt;(employeeMap.values());
+        employees.sort(Comparator.comparingInt(Employee::getId));
+        return Collections.unmodifiableList(employees);
+    }
+
+    public int getEmployeeCount() {
+        return employeeMap.size();
+    }
+
+    public void clearEmployees() {
+        employeeMap.clear();
+    }
+
+    public boolean exists(int id) {
+        return employeeMap.containsKey(id);
+    }
+
+    public Map&lt;Integer, Employee&gt; getEmployeeMap() {
+        return Collections.unmodifiableMap(employeeMap);
+    }
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Key Function Explanations:</strong>
+            <ul>
+                <li><code>addEmployee()</code>: Checks if the ID key is already stored in the <code>HashMap</code> using <code>containsKey()</code>. If it exists, it throws a checked <code>DuplicateEmployeeException</code> to block the write operation. Otherwise, it stores the record in memory using <code>put()</code>.</li>
+                <li><code>viewAllEmployees()</code>: Creates an <code>ArrayList</code> from the map values, sorts the list using a `Comparator`, and wraps it using <code>Collections.unmodifiableList()</code> to return a read-only list.</li>
+            </ul>
+        </div>
+
+        <h2>4.2 PayrollService.java</h2>
+        <p><strong>Purpose:</strong> Formats payslips and generates corporate payroll summary reports.</p>
+        <pre><code>package service;
+
+import constants.PayrollConstants;
+import enums.EmployeeType;
+import model.Employee;
+import util.PayrollCalculator;
+import java.time.LocalDate;
+import java.util.List;
+
+public class PayrollService {
+
+    public String generatePayslip(Employee employee) {
+        double baseSalary     = employee.getBaseSalary();
+        EmployeeType type     = employee.getEmployeeType();
+        double allowance      = 0.0;
+        double bonus          = 0.0;
+        double tax            = 0.0;
+        double leaveDeduction = 0.0;
+        double netSalary      = employee.calculateSalary();
+
+        switch (type) {
+            case REGULAR -> {
+                allowance      = PayrollCalculator.calculateAllowance(baseSalary);
+                tax            = PayrollCalculator.calculateTax(baseSalary + allowance);
+                leaveDeduction = PayrollCalculator.calculateLeaveDeduction(baseSalary, employee.getLeaveTaken());
+            }
+            case CONTRACT -> {
+                bonus          = PayrollCalculator.calculateBonus(baseSalary);
+                leaveDeduction = PayrollCalculator.calculateLeaveDeduction(baseSalary, employee.getLeaveTaken());
+            }
+            case INTERN -> { }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        String line = PayrollConstants.DOUBLE_RULE;
+
+        sb.append("\n").append(line).append("\n");
+        sb.append("               EMPLOYEE PAYSLIP                \n");
+        sb.append(line).append("\n");
+        sb.append(String.format("  Date             : %s%n", LocalDate.now()));
+        sb.append(String.format("  Employee ID      : %d%n", employee.getId()));
+        sb.append(String.format("  Name             : %s%n", employee.getName()));
+        sb.append(String.format("  Department       : %s%n", employee.getDepartment()));
+        sb.append(String.format("  Designation      : %s%n", employee.getDesignation()));
+        sb.append(String.format("  Employee Type    : %s%n", type.getDisplayName()));
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+        sb.append("  EARNINGS\n");
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+        sb.append(String.format("  Base Salary      : Rs.%,12.2f%n", baseSalary));
+
+        if (type == EmployeeType.REGULAR) {
+            sb.append(String.format("  Allowance (20%%)  : Rs.%,12.2f%n", allowance));
+        }
+        if (type == EmployeeType.CONTRACT) {
+            sb.append(String.format("  Bonus (10%%)      : Rs.%,12.2f%n", bonus));
+        }
+
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+        sb.append("  DEDUCTIONS\n");
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+
+        if (type == EmployeeType.REGULAR) {
+            sb.append(String.format("  Tax (10%%)        : Rs.%,12.2f%n", tax));
+        } else {
+            sb.append(String.format("  Tax              : Rs.%,12.2f  (Exempt)%n", 0.0));
+        }
+
+        if (type != EmployeeType.INTERN) {
+            sb.append(String.format("  Leave Deduction  : Rs.%,12.2f  (%d day(s))%n",
+                    leaveDeduction, employee.getLeaveTaken()));
+        } else {
+            sb.append(String.format("  Leave Deduction  : Rs.%,12.2f  (N/A)%n", 0.0));
+        }
+
+        sb.append(PayrollConstants.DOUBLE_RULE).append("\n");
+        sb.append(String.format("  NET SALARY       : Rs.%,12.2f%n", netSalary));
+        sb.append(PayrollConstants.DOUBLE_RULE).append("\n");
+
+        return sb.toString();
+    }
+
+    public String displayPayrollSummary(List&lt;Employee&gt; employees) {
+        if (employees.isEmpty()) {
+            return "\n  No employees found to generate payroll summary.\n";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n").append(PayrollConstants.DOUBLE_RULE).append("\n");
+        sb.append("               PAYROLL SUMMARY REPORT               \n");
+        sb.append(String.format("               Date: %s%n", LocalDate.now()));
+        sb.append(PayrollConstants.DOUBLE_RULE).append("\n");
+        sb.append(String.format("%-8s %-20s %-12s %-12s %-14s%n",
+                "ID", "Name", "Type", "Base Salary", "Net Salary"));
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+
+        double totalBase = 0;
+        double totalNet  = 0;
+
+        for (Employee emp : employees) {
+            double netSalary = emp.calculateSalary();
+            sb.append(String.format("%-8d %-20s %-12s Rs.%,10.2f  Rs.%,12.2f%n",
+                    emp.getId(), emp.getName(),
+                    emp.getEmployeeType().getDisplayName(),
+                    emp.getBaseSalary(), netSalary));
+            totalBase += emp.getBaseSalary();
+            totalNet  += netSalary;
+        }
+
+        sb.append(PayrollConstants.HORIZONTAL_RULE).append("\n");
+        sb.append(String.format("  Total Employees  : %d%n", employees.size()));
+        sb.append(String.format("  Total Base Salary: Rs.%,12.2f%n", totalBase));
+        sb.append(String.format("  Total Net Payout : Rs.%,12.2f%n", totalNet));
+        sb.append(PayrollConstants.DOUBLE_RULE).append("\n");
+
+        return sb.toString();
+    }
+}</code></pre>
+
+        <h2>4.3 FileService.java</h2>
+        <p><strong>Purpose:</strong> Reads and writes CSV database files, and exports individual pay statements.</p>
+        <pre><code>package service;
+
+import constants.PayrollConstants;
+import enums.EmployeeType;
+import exception.FileProcessingException;
+import model.ContractEmployee;
+import model.Employee;
+import model.Intern;
+import model.RegularEmployee;
+import util.ValidationUtil;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class FileService {
+
+    public void loadEmployeesFromFile(EmployeeService employeeService) throws FileProcessingException {
+        Objects.requireNonNull(employeeService, "EmployeeService cannot be null.");
+
+        Path filePath = Paths.get(PayrollConstants.EMPLOYEE_DATA_FILE);
+
+        if (!Files.exists(filePath)) {
+            throw new FileProcessingException("File not found: " + filePath.toAbsolutePath());
+        }
+
+        int imported = 0;
+        int skipped  = 0;
+        List&lt;String&gt; skippedReasons = new ArrayList&lt;&gt;();
+
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            int lineNumber = 0;
+
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+
+                if (line.isBlank()) continue;
+
+                try {
+                    Employee employee = parseCsvLine(line, lineNumber);
+                    employeeService.addEmployee(employee);
+                    imported++;
+                } catch (Exception ex) {
+                    skipped++;
+                    skippedReasons.add("  Line " + lineNumber + ": " + line.trim() + " -> " + ex.getMessage());
+                }
+            }
+        } catch (IOException ex) {
+            throw new FileProcessingException("Failed to read file: " + filePath.toAbsolutePath(), ex);
+        }
+
+        System.out.println("\n" + PayrollConstants.HORIZONTAL_RULE);
+        System.out.println("  BULK IMPORT SUMMARY");
+        System.out.println(PayrollConstants.HORIZONTAL_RULE);
+        System.out.println("  Successfully Imported : " + imported);
+        System.out.println("  Skipped Records       : " + skipped);
+
+        if (!skippedReasons.isEmpty()) {
+            System.out.println("\n  Skipped Details:");
+            for (String reason : skippedReasons) {
+                System.out.println(reason);
+            }
+        }
+        System.out.println(PayrollConstants.HORIZONTAL_RULE);
+    }
+
+    public void saveEmployees(EmployeeService employeeService) throws FileProcessingException {
+        Objects.requireNonNull(employeeService, "EmployeeService cannot be null.");
+
+        Path filePath = Paths.get(PayrollConstants.EMPLOYEE_DATA_FILE);
+
+        try {
+            Files.createDirectories(filePath.getParent());
+
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+                for (Map.Entry&lt;Integer, Employee&gt; entry : employeeService.getEmployeeMap().entrySet()) {
+                    Employee emp = entry.getValue();
+
+                    String csvLine = String.join(",",
+                            String.valueOf(emp.getId()),
+                            emp.getName(),
+                            emp.getDepartment(),
+                            emp.getDesignation(),
+                            emp.getEmployeeType().name(),
+                            String.valueOf(emp.getBaseSalary()),
+                            String.valueOf(emp.getLeaveTaken()));
+
+                    writer.write(csvLine);
+                    writer.newLine();
+                }
+            }
+
+            System.out.println("\n  Employee data exported successfully to: " + filePath.toAbsolutePath());
+
+        } catch (IOException ex) {
+            throw new FileProcessingException("Failed to save file: " + filePath.toAbsolutePath(), ex);
+        }
+    }
+
+    public void exportPayslip(Employee employee, String payslipContent) throws FileProcessingException {
+        Objects.requireNonNull(employee, "Employee cannot be null.");
+        Objects.requireNonNull(payslipContent, "Payslip content cannot be null.");
+
+        String fileName = "payslip_" + employee.getId() + "_" + LocalDate.now() + ".txt";
+        Path payslipDir  = Paths.get(PayrollConstants.PAYSLIP_DIRECTORY);
+        Path payslipFile = payslipDir.resolve(fileName);
+
+        try {
+            Files.createDirectories(payslipDir);
+
+            try (BufferedWriter writer = Files.newBufferedWriter(payslipFile)) {
+                writer.write(payslipContent);
+            }
+
+            System.out.println("  Payslip exported to: " + payslipFile.toAbsolutePath());
+
+        } catch (IOException ex) {
+            throw new FileProcessingException("Failed to export payslip for Employee ID " + employee.getId(), ex);
+        }
+    }
+
+    private Employee parseCsvLine(String line, int lineNumber) throws Exception {
+        String[] tokens = line.split(PayrollConstants.CSV_DELIMITER);
+
+        if (tokens.length != PayrollConstants.CSV_COLUMN_COUNT) {
+            throw new IllegalArgumentException("Expected " + PayrollConstants.CSV_COLUMN_COUNT + " columns, found " + tokens.length);
+        }
+
+        int id             = Integer.parseInt(tokens[0].trim());
+        String name        = tokens[1].trim();
+        String department  = tokens[2].trim();
+        String designation = tokens[3].trim();
+        EmployeeType type  = EmployeeType.fromString(tokens[4].trim());
+        double salary      = Double.parseDouble(tokens[5].trim());
+        int leave          = Integer.parseInt(tokens[6].trim());
+
+        ValidationUtil.validatePositiveId(id);
+        ValidationUtil.validateName(name);
+        ValidationUtil.validateNonBlank(department, "Department");
+        ValidationUtil.validateNonBlank(designation, "Designation");
+        ValidationUtil.validatePositiveSalary(salary);
+        ValidationUtil.validateLeave(leave);
+
+        return switch (type) {
+            case REGULAR  -> new RegularEmployee(id, name, department, designation, salary, leave);
+            case CONTRACT -> new ContractEmployee(id, name, department, designation, salary, leave);
+            case INTERN   -> new Intern(id, name, department, designation, salary, leave);
+        };
+    }
+}</code></pre>
+
+        <!-- ── SECTION 5: util/ ─────────────────────────────────────────── -->
+        <h1>5. Package: util</h1>
+        
+        <h2>5.1 PayrollCalculator.java</h2>
+        <p><strong>Purpose:</strong> Stateless helper library for calculating salary components.</p>
+        <pre><code>package util;
+
+import constants.PayrollConstants;
+import model.Employee;
+
+public final class PayrollCalculator {
+
+    private PayrollCalculator() { }
+
+    public static double calculateTax(double grossSalary) {
+        return grossSalary * PayrollConstants.REGULAR_TAX_RATE;
+    }
+
+    public static double calculateAllowance(double baseSalary) {
+        return baseSalary * PayrollConstants.REGULAR_ALLOWANCE_RATE;
+    }
+
+    public static double calculateBonus(double baseSalary) {
+        return baseSalary * PayrollConstants.CONTRACT_BONUS_RATE;
+    }
+
+    public static double calculateLeaveDeduction(double baseSalary, int leaveTaken) {
+        return baseSalary * PayrollConstants.LEAVE_DEDUCTION_PER_DAY * leaveTaken;
+    }
+
+    public static double calculateNetSalary(Employee employee) {
+        double base  = employee.getBaseSalary();
+        int    leave = employee.getLeaveTaken();
+
+        return switch (employee.getEmployeeType()) {
+            case REGULAR -> {
+                double allowance      = calculateAllowance(base);
+                double gross          = base + allowance;
+                double tax            = calculateTax(gross);
+                double leaveDeduction = calculateLeaveDeduction(base, leave);
+                yield gross - tax - leaveDeduction;
+            }
+            case CONTRACT -> {
+                double bonus          = calculateBonus(base);
+                double gross          = base + bonus;
+                double leaveDeduction = calculateLeaveDeduction(base, leave);
+                yield gross - leaveDeduction;
+            }
+            case INTERN -> base;
+        };
+    }
+}</code></pre>
+
+        <h2>5.2 ValidationUtil.java</h2>
+        <p><strong>Purpose:</strong> Sanitizes and validates dynamic inputs to prevent bad records from entering the database.</p>
+        <pre><code>package util;
+
+import exception.InvalidLeaveException;
+import exception.InvalidSalaryException;
+import constants.PayrollConstants;
+import java.util.Objects;
+
+public final class ValidationUtil {
+
+    private ValidationUtil() { }
+
+    public static void validatePositiveSalary(double salary) throws InvalidSalaryException {
+        if (salary <= 0) {
+            throw new InvalidSalaryException("Salary must be positive. You entered: " + salary);
+        }
+    }
+
+    public static void validatePositiveId(int id) {
+        if (id < PayrollConstants.MIN_EMPLOYEE_ID) {
+            throw new IllegalArgumentException("Employee ID must be at least 1. You entered: " + id);
+        }
+    }
+
+    public static void validateName(String name) {
+        Objects.requireNonNull(name, "Name cannot be null.");
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be blank.");
+        }
+        if (!name.matches(PayrollConstants.NAME_PATTERN)) {
+            throw new IllegalArgumentException("Name must contain only letters and spaces. You entered: '" + name + "'");
+        }
+    }
+
+    public static void validateLeave(int leave) throws InvalidLeaveException {
+        if (leave < 0) {
+            throw new InvalidLeaveException("Leave days cannot be negative. You entered: " + leave);
+        }
+        if (leave > PayrollConstants.MAX_LEAVE_DAYS) {
+            throw new InvalidLeaveException("Leave days cannot exceed " + PayrollConstants.MAX_LEAVE_DAYS + ". You entered: " + leave);
+        }
+    }
+
+    public static void validateNonBlank(String value, String fieldName) {
+        Objects.requireNonNull(value, fieldName + " cannot be null.");
+        if (value.isBlank()) {
+            throw new IllegalArgumentException(fieldName + " cannot be blank.");
+        }
+    }
+}</code></pre>
+
+        <!-- ── SECTION 6: Main.java ────────────────────────────────────── -->
+        <h1>6. Main.java</h1>
+        
+        <p><strong>Purpose:</strong> Renders the user menus, parses local console variables, and routes operations to the services.</p>
+        <p>Due to the size of the file, the key controller methods are explained below along with their source code:</p>
+
+        <h3>Menu Choice Controller Block (from main method):</h3>
+        <pre><code>int choice = readIntInput("  Enter your choice: ");
+
+switch (choice) {
+    case 1  -> addEmployee();
+    case 2  -> viewAllEmployees();
+    case 3  -> searchEmployee();
+    case 4  -> updateEmployee();
+    case 5  -> deleteEmployee();
+    case 6  -> generatePayslip();
+    case 7  -> bulkImportEmployees();
+    case 8  -> exportEmployeeData();
+    case 9  -> displayPayrollSummary();
+    case 10 -> {
+        running = false;
+        System.out.println("\n  Goodbye! Thank you for using the Payroll System.\n");
+    }
+    default -> System.out.println("\n  Invalid choice. Please select 1-10.\n");
+}</code></pre>
+
+        <h3>Employee Creation Controller (addEmployee):</h3>
+        <pre><code>private static void addEmployee() {
+    System.out.println("\n" + PayrollConstants.HORIZONTAL_RULE);
+    System.out.println("  ADD NEW EMPLOYEE");
+    System.out.println(PayrollConstants.HORIZONTAL_RULE);
+
+    try {
+        int id = readIntInput("  Enter Employee ID   : ");
+        ValidationUtil.validatePositiveId(id);
+
+        String name = readStringInput("  Enter Name          : ");
+        ValidationUtil.validateName(name);
+
+        String department = readStringInput("  Enter Department    : ");
+        ValidationUtil.validateNonBlank(department, "Department");
+
+        String designation = readStringInput("  Enter Designation   : ");
+        ValidationUtil.validateNonBlank(designation, "Designation");
+
+        System.out.println("  Select Employee Type:");
+        System.out.println("    1 - Regular");
+        System.out.println("    2 - Contract");
+        System.out.println("    3 - Intern");
+        int typeChoice = readIntInput("  Enter type (1/2/3)  : ");
+
+        EmployeeType type = switch (typeChoice) {
+            case 1  -> EmployeeType.REGULAR;
+            case 2  -> EmployeeType.CONTRACT;
+            case 3  -> EmployeeType.INTERN;
+            default -> throw new IllegalArgumentException("Invalid type. Choose 1, 2, or 3.");
+        };
+
+        double salary = readDoubleInput("  Enter Base Salary   : ");
+        ValidationUtil.validatePositiveSalary(salary);
+
+        int leave = readIntInput("  Enter Leave Taken   : ");
+        ValidationUtil.validateLeave(leave);
+
+        Employee employee = switch (type) {
+            case REGULAR  -> new RegularEmployee(id, name, department, designation, salary, leave);
+            case CONTRACT -> new ContractEmployee(id, name, department, designation, salary, leave);
+            case INTERN   -> new Intern(id, name, department, designation, salary, leave);
+        };
+
+        employeeService.addEmployee(employee);
+        System.out.println("\n  Employee '" + name + "' (ID: " + id + ") added successfully.\n");
+
+    } catch (DuplicateEmployeeException | InvalidSalaryException | InvalidLeaveException ex) {
+        System.out.println("\n  Error: " + ex.getMessage() + "\n");
+    } catch (IllegalArgumentException ex) {
+        System.out.println("\n  Validation Error: " + ex.getMessage() + "\n");
+    }
+}</code></pre>
+
+        <div class="explanation-box">
+            <strong>Key Step-by-Step Logic:</strong>
+            <ul>
+                <li>The user inputs the employee type (1, 2, or 3).</li>
+                <li>A Java 17 switch expression maps the selection to the <code>EmployeeType</code> enum.</li>
+                <li>Inputs are validated, and a switch expression creates the corresponding subclass instance.</li>
+                <li>The object is saved to the HashMap via <code>employeeService.addEmployee()</code>.</li>
+            </ul>
+        </div>
+
+        <!-- ── NEW SECTION: Java Concepts & Keywords Reference ───────────── -->
+        <h1>7. Java Programming Concepts & Keywords Reference</h1>
+        
+        <h2>7.1 Final Keyword</h2>
+        <p><strong>Definition:</strong> The <code class="inline-code">final</code> keyword in Java represents immutability. Its behavior changes depending on where it is applied:</p>
+        <ul>
+            <li><strong>On a Class:</strong> Prevents the class from being inherited or sub-classed. (e.g., <code class="inline-code">public final class PayrollConstants</code>).</li>
+            <li><strong>On a Method:</strong> Prevents subclasses from overriding the method.</li>
+            <li><strong>On a Variable:</strong> Makes it a constant. Once assigned, its value cannot be changed. (e.g., <code class="inline-code">private final Map&lt;Integer, Employee&gt; employeeMap</code>).</li>
+        </ul>
+        <p><strong>Code Example:</strong> Inside <code>EmployeeService.java</code>, the map reference is marked <code>final</code>, ensuring it always points to the same <code>HashMap</code> instance:</p>
+        <pre><code>private final Map&lt;Integer, Employee&gt; employeeMap = new HashMap&lt;&gt;();</code></pre>
+        
+        <h2>7.2 Abstract Keyword</h2>
+        <p><strong>Definition:</strong> The <code class="inline-code">abstract</code> keyword is used to declare classes and methods that act as templates. An abstract class cannot be instantiated directly (you cannot run <code>new Employee()</code>). Abstract methods have no body in the parent class; their implementation is deferred to child subclasses.</p>
+        <p><strong>Code Example:</strong> In <code>Employee.java</code>:</p>
+        <pre><code>public abstract class Employee {
+    public abstract double calculateSalary();
+}</code></pre>
+
+        <h2>7.3 Static Keyword</h2>
+        <p><strong>Definition:</strong> The <code class="inline-code">static</code> keyword associates a member (field or method) with the class itself rather than individual instances. Static variables share a single value across all instances, and static methods can be called directly without creating an object.</p>
+        <p><strong>Code Example:</strong> In <code>ValidationUtil.java</code>:</p>
+        <pre><code>public static void validatePositiveSalary(double salary) throws InvalidSalaryException { ... }</code></pre>
+        <p>This allows us to call <code>ValidationUtil.validatePositiveSalary(50000)</code> directly from <code>Main.java</code> without instantiating the utility class.</p>
+
+        <h2>7.4 Access Modifiers (Private, Public, Protected)</h2>
+        <p>These keywords define the visibility of classes, fields, and methods to enforce encapsulation:</p>
+        <ul>
+            <li><strong>private:</strong> Accessible only within the same class. (e.g., <code>private int id;</code>).</li>
+            <li><strong>public:</strong> Accessible from any class in any package. (e.g., <code>public int getId()</code>).</li>
+            <li><strong>protected:</strong> Accessible within the same package and by subclasses in other packages. (e.g., <code>protected Employee(...)</code>).</li>
+        </ul>
+
+        <h2>7.5 Java 17 Switch Expressions (with Arrow Syntax & Yield)</h2>
+        <p>Java 17 introduces improved switch expressions that simplify branching and allow values to be returned directly:</p>
+        <ul>
+            <li><strong>Arrow Syntax (<code>-></code>):</strong> Eliminates the need for <code>case</code> fall-throughs and <code>break</code> statements, reducing common errors.</li>
+            <li><strong>Yield Keyword:</strong> Returns a value from a multi-line switch case block.</li>
+        </ul>
+        <p><strong>Code Example:</strong> In <code>PayrollCalculator.java</code>:</p>
+        <pre><code>return switch (employee.getEmployeeType()) {
+    case REGULAR -> {
+        double allowance = calculateAllowance(base);
+        double gross = base + allowance;
+        double tax = calculateTax(gross);
+        double leaveDeduction = calculateLeaveDeduction(base, leave);
+        yield gross - tax - leaveDeduction;
+    }
+    case CONTRACT -> {
+        double bonus = calculateBonus(base);
+        double gross = base + bonus;
+        double leaveDeduction = calculateLeaveDeduction(base, leave);
+        yield gross - leaveDeduction;
+    }
+    case INTERN -> base;
+};</code></pre>
+
+        <h2>7.6 Try-With-Resources & AutoCloseable</h2>
+        <p><strong>Definition:</strong> A try-with-resources statement is a try block that declares one or more resources (such as file readers or writers). The resource must implement the <code>java.lang.AutoCloseable</code> interface. Java automatically closes these resources at the end of the block, preventing resource leaks even if an exception occurs.</p>
+        <p><strong>Code Example:</strong> In <code>FileService.java</code>:</p>
+        <pre><code>try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+    // Read file operations
+} catch (IOException ex) {
+    // Handle error
+}</code></pre>
+
+        <h2>7.7 Immutability & Encapsulation</h2>
+        <p><strong>Definition:</strong> Returning internal collections directly allows other modules to modify your data, breaking encapsulation. We use utility wrappers to expose read-only views of internal data, protecting state integrity.</p>
+        <p><strong>Code Example:</strong> In <code>EmployeeService.java</code>:</p>
+        <pre><code>public List&lt;Employee&gt; viewAllEmployees() {
+    List&lt;Employee&gt; employees = new ArrayList&lt;&gt;(employeeMap.values());
+    employees.sort(Comparator.comparingInt(Employee::getId));
+    return Collections.unmodifiableList(employees);
+}</code></pre>
+        <p>Calling <code>add()</code> or <code>remove()</code> on the returned list will throw an <code>UnsupportedOperationException</code>, protecting the internal database state.</p>
+
+        <h2>7.8 Checked vs Unchecked Exceptions</h2>
+        <p><strong>Definition:</strong> Checked exceptions are checked at compile-time. The compiler forces the developer to handle them using a try-catch block or declare them in the method signature using the <code>throws</code> keyword. Unchecked exceptions (subclasses of <code>RuntimeException</code>) are checked at runtime and do not require explicit handling.</p>
+        <ul>
+            <li><strong>Checked:</strong> <code>DuplicateEmployeeException</code>, <code>EmployeeNotFoundException</code>, <code>FileProcessingException</code>.</li>
+            <li><strong>Unchecked:</strong> <code>IllegalArgumentException</code>, <code>NumberFormatException</code>, <code>NullPointerException</code>.</li>
+        </ul>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+101,John Doe,IT,Developer,REGULAR,50000.0,2
+102,Jane Smith,HR,Recruiter,CONTRACT,30000.0,1
+103,Bob Wilson,IT,Intern,INTERN,12000.0,0
+104,Alice Brown,Finance,Analyst,REGULAR,55000.0,3
+105,Charlie Davis,Marketing,Manager,CONTRACT,45000.0,0
+108,Anita Sharma,HR,Executive,REGULAR,42000.0,1
+109,Rahul Verma,IT,Developer,REGULAR,50000.0,2

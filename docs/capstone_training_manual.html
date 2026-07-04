@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Systems Training Manual & Technical Specification Guide</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #0f766e;
+            --text-main: #334155;
+            --text-dark: #0f172a;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --code-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .manual-container {
+            max-width: 950px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 60px 80px;
+        }
+
+        /* ── Cover Page ──────────────────────────────────────────────────── */
+        .cover-page {
+            text-align: center;
+            padding: 120px 0;
+            border-bottom: 3px double var(--primary);
+            margin-bottom: 60px;
+        }
+
+        .cover-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            margin-bottom: 60px;
+            font-weight: 500;
+        }
+
+        .cover-metadata {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            color: var(--secondary);
+        }
+
+        .meta-item {
+            background-color: var(--bg-light);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ── Typography & Headings ────────────────────────────────────────── */
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+            page-break-before: always;
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 0.98rem;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        /* ── Tables ──────────────────────────────────────────────────────── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--bg-light);
+        }
+
+        /* ── Code & Diagrams ─────────────────────────────────────────────── */
+        pre {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--code-bg);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #b91c1c;
+        }
+
+        .diagram-title {
+            text-align: center;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--text-main);
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        .callout {
+            background-color: rgba(15, 118, 110, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 25px;
+        }
+
+        /* ── Print Configuration ────────────────────────────────────────── */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+
+            .manual-container {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            h1 {
+                page-break-before: always;
+            }
+
+            pre, table, .callout {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="manual-container">
+        
+        <!-- ── Cover Page ──────────────────────────────────────────────── -->
+        <div class="cover-page">
+            <div class="cover-title">EMPLOYEE PAYROLL SYSTEM</div>
+            <div class="cover-subtitle">Developer Guide, Architectural Specification & Viva Reference Manual</div>
+            
+            <div class="cover-metadata">
+                <div class="meta-item">
+                    <strong>Document Class:</strong> Systems Architecture Specification
+                </div>
+                <div class="meta-item">
+                    <strong>Target Platform:</strong> Java Runtime Environment (JRE 17+)
+                </div>
+                <div class="meta-item">
+                    <strong>Development Standard:</strong> SOLID, Clean Architecture
+                </div>
+                <div class="meta-item">
+                    <strong>Release Classification:</strong> Production Ready
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PART 1: Project Introduction ──────────────────────────────── -->
+        <h1>Part 1: Project Introduction</h1>
+        
+        <h2>1.1 Why a Payroll System?</h2>
+        <p>Compensation processing is one of the most critical back-office operations in any commercial organization. It involves tracking employee details, calculating salaries based on contract terms, applying statutory tax deductions, accounting for leaves taken, and exporting formatted pay statements (payslips). When calculated manually or using Excel spreadsheets, organizations suffer from data scatter, missing validations, and math errors. If a calculation misaligns by even a minor percentage, it can impact employee trust and lead to regulatory compliance issues.</p>
+        
+        <h2>1.2 Real-World Payroll Process</h2>
+        <p>Enterprise platforms like SAP SuccessFactors, Workday, and ADP process payroll using scalable architectures. They coordinate complex rules across multiple departments:
+        <ul>
+            <li><strong>HR Module:</strong> Manages employee records (joining date, department, role, basic salary, tax class).</li>
+            <li><strong>Attendance System:</strong> Feeds monthly attendance and leave logs to calculate deductions.</li>
+            <li><strong>Payroll Engine:</strong> Applies tax tables, calculates bonuses, processes deductions, and generates payslips.</li>
+            <li><strong>Finance Integration:</strong> Posts updates to accounting ledgers and generates bank transfer files.</li>
+        </ul>
+        Our Java application acts as a mini-enterprise system demonstrating the core calculations, validations, and architecture patterns of these enterprise systems on a smaller scale.</p>
+
+        <!-- ── PART 2: Complete Project Workflow ─────────────────────────── -->
+        <h1>Part 2: Complete Project Workflow</h1>
+        
+        <p>The system execution pipeline flows as follows:</p>
+        <pre>
+[Main.java] (Scanner Loop)
+      │
+      ├─► validate fields using [ValidationUtil.java]
+      │
+      ├─► instantiate subclasses using Java 17 Switch
+      │
+      ├─► save record to memory using [EmployeeService.java] (HashMap)
+      │
+      ├─► calculate salary using [PayrollCalculator.java] (Polymorphic call)
+      │
+      └─► write output to disk using [FileService.java] (NIO Buffers)</pre>
+        <div class="diagram-title">Figure 2.1: Complete Pipeline Flowchart</div>
+
+        <h2>2.1 Step-by-Step Execution Sequence</h2>
+        <ol>
+            <li><strong>Application Bootstrap:</strong> <code>Main.java</code> instantiates the scanner and services. <code>EmployeeService</code> initializes an empty in-memory <code>HashMap</code> repository.</li>
+            <li><strong>Prompt Loop:</strong> The console displays the 10-option menu.</li>
+            <li><strong>Execution Routing:</strong> The user enters a choice. Java 17 switch expressions route the execution to the appropriate method in <code>Main.java</code>.</li>
+            <li><strong>Input Verification:</strong> <code>ValidationUtil</code> checks input parameters. If checks pass, the object is created.</li>
+            <li><strong>Memory Update:</strong> The service layer saves the object to the <code>HashMap</code>, checking for duplicate IDs.</li>
+            <li><strong>File Persistence:</strong> The updated state is exported to the CSV database on disk.</li>
+        </ol>
+
+        <!-- ── PART 3: How "Generate Payslip" Works ─────────────────────── -->
+        <h1>Part 3: How "Generate Payslip" Works</h1>
+        
+        <p>Generating a payslip (Menu Option 6) triggers the following operational flow:</p>
+
+        <pre>
+User enters ID ──► search HashMap ──► hashCode() lookup ──► return Employee subclass
+                                                                  │
+                                                                  ▼
+Display to screen ◄── StringBuilder ◄── calculateNetSalary() ◄── polymorphic dispatch</pre>
+        <div class="diagram-title">Figure 3.1: Generate Payslip Process Flow</div>
+
+        <ol>
+            <li><strong>Search:</strong> <code>EmployeeService.searchEmployee(id)</code> looks up the ID in the <code>HashMap</code>.</li>
+            <li><strong>Performance:</strong> The map uses the key's hash code to find the correct node bucket, returning the matching <code>Employee</code> instance in $O(1)$ constant time.</li>
+            <li><strong>Polymorphic Dispatch:</strong> <code>PayrollService</code> calls <code>employee.calculateSalary()</code>. The JVM resolves the call at runtime, executing the correct calculation method based on the actual object type (Regular, Contract, or Intern).</li>
+            <li><strong>Calculations:</strong> <code>PayrollCalculator</code> calculates taxes, allowances, and leave deductions.</li>
+            <li><strong>Format:</strong> <code>StringBuilder</code> structures the pay statement layout.</li>
+            <li><strong>Export:</strong> <code>FileService</code> writes the pay statement to a file under <code>data/payslips/</code> using a buffered stream.</li>
+        </ol>
+
+        <!-- ── PART 4: How the File is Saved ────────────────────────────── -->
+        <h1>Part 4: How the File is Saved</h1>
+        
+        <h2>4.1 Design Choice: TXT format vs PDF</h2>
+        <p>A production system typically exports payslips as PDF documents. However, generating PDFs requires external libraries like iText or Apache PDFBox, adding extra dependencies. For this console application, we use plain text files. This allows us to focus on Java's core file features using the standard JDK library.</p>
+        
+        <h2>4.2 Buffered Writing Mechanics</h2>
+        <p>We write to files using the modern <code>java.nio.file</code> package:
+        <ul>
+            <li><strong>BufferedWriter:</strong> Buffers output characters in memory, reducing direct disk access and improving performance.</li>
+            <li><strong>Files.newBufferedWriter():</strong> Opens a buffered writer channel using the default UTF-8 character encoding.</li>
+            <li><strong>Files.createDirectories():</strong> Automatically creates parent folders (like <code>data/payslips/</code>) if they do not exist.</li>
+            <li><strong>Automatic Resource Management:</strong> The file operations are wrapped in try-with-resources blocks, ensuring files are closed properly and preventing memory leaks.</li>
+        </ul>
+        </p>
+
+        <!-- ── PART 5: CSV Import ────────────────────────────────────────── -->
+        <h1>Part 5: CSV Import</h1>
+        
+        <p>The CSV import process parses employee records line-by-line:</p>
+        <pre>
+[Read CSV Line] ──► [Split by Comma] ──► [Validate Fields] ──► [Create Entity] ──► [HashMap.put()]</pre>
+        <div class="diagram-title">Figure 5.1: CSV Import Pipeline Diagram</div>
+
+        <h2>5.1 Resilient Row Processing</h2>
+        <p>During batch imports, files may contain formatting errors (e.g. invalid numbers, empty fields, negative values). Rather than halting the import on the first error, we process each row inside its own try-catch block. If an error occurs on one line, the catch block logs the error details, increments a skipped counter, and continues processing the rest of the file. This ensures valid records are imported successfully despite errors in individual rows.</p>
+
+        <!-- ── PART 6: Java Class Explanations ─────────────────────────── -->
+        <h1>Part 6: Java Class Explanations</h1>
+        
+        <p>The application is split into structured classes, each with clear responsibilities:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Class Name</th>
+                    <th>Subsystem Layer</th>
+                    <th>Core Responsibility</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Employee</strong></td>
+                    <td>Model Layer</td>
+                    <td>Abstract parent class defining base employee fields and the abstract calculation contract.</td>
+                </tr>
+                <tr>
+                    <td><strong>RegularEmployee</strong></td>
+                    <td>Model Layer</td>
+                    <td>Concrete subclass implementing Regular employee calculations (Allowance + Tax deductions).</td>
+                </tr>
+                <tr>
+                    <td><strong>ContractEmployee</strong></td>
+                    <td>Model Layer</td>
+                    <td>Concrete subclass implementing Contract employee calculations (Bonus - Leave deductions).</td>
+                </tr>
+                <tr>
+                    <td><strong>Intern</strong></td>
+                    <td>Model Layer</td>
+                    <td>Concrete subclass representing Trainees (Flat stipend calculation).</td>
+                </tr>
+                <tr>
+                    <td><strong>EmployeeService</strong></td>
+                    <td>Service Layer</td>
+                    <td>Manages in-memory CRUD operations using a HashMap repository.</td>
+                </tr>
+                <tr>
+                    <td><strong>PayrollService</strong></td>
+                    <td>Service Layer</td>
+                    <td>Generates formatted payslip sheets and corporate payroll summaries.</td>
+                </tr>
+                <tr>
+                    <td><strong>FileService</strong></td>
+                    <td>Service Layer</td>
+                    <td>Reads and writes employee CSV records and exports pay statements.</td>
+                </tr>
+                <tr>
+                    <td><strong>PayrollCalculator</strong></td>
+                    <td>Utility Layer</td>
+                    <td>Stateless calculation helper for processing salary components.</td>
+                </tr>
+                <tr>
+                    <td><strong>ValidationUtil</strong></td>
+                    <td>Utility Layer</td>
+                    <td>Enforces constraints on inputs (positive bounds, string formats).</td>
+                </tr>
+                <tr>
+                    <td><strong>Main</strong></td>
+                    <td>Presentation Layer</td>
+                    <td>Coordinates the application loop, processes menus, and manages the Scanner.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ── PART 7: Core Java Concepts ──────────────────────────────── -->
+        <h1>Part 7: Core Java Concepts</h1>
+        
+        <p>This project demonstrates several core Java concepts:</p>
+
+        <ul>
+            <li><strong>Encapsulation:</strong> All fields are private, protecting state integrity. They can only be accessed through public getters and setters.</li>
+            <li><strong>Inheritance:</strong> Subclasses inherit base fields (like ID, name, baseSalary) from the abstract parent class, reducing duplicate code.</li>
+            <li><strong>Polymorphism:</strong> <code>calculateSalary()</code> is called on an <code>Employee</code> reference, but the JVM dynamically resolves the call to execute the subclass's overridden implementation at runtime.</li>
+            <li><strong>Generics:</strong> Used to define collections with compilation-time type checks:
+                <pre><code>private final Map&lt;Integer, Employee&gt; employeeMap = new HashMap&lt;&gt;();</code></pre>
+            </li>
+            <li><strong>Try-with-resources:</strong> Automatically closes file streams at the end of the block, preventing resource leaks.</li>
+        </ul>
+
+        <!-- ── PART 8: Data Structures ──────────────────────────────────── -->
+        <h1>Part 8: Data Structures</h1>
+        
+        <h2>8.1 Why HashMap?</h2>
+        <p>A <code>HashMap</code> uses an array of node buckets. When <code>HashMap.put(K, V)</code> is called:</p>
+        <ol>
+            <li><strong>Hashing:</strong> The key's <code>hashCode()</code> is computed and passed to a hash function to calculate the bucket index.</li>
+            <li><strong>Collision Resolution:</strong> If two keys map to the same bucket index (a collision), they are stored in a linked list. In Java 8+, if the bucket size exceeds 8, the linked list converts into a balanced Red-Black Tree, improving lookup times from $O(N)$ to $O(\log N)$.</li>
+            <li><strong>Rehashing & Load Factor:</strong> When the number of stored items exceeds 75% (default load factor of 0.75) of the bucket array capacity, the map resizes the array and relocates the nodes. This process is called rehashing.</li>
+        </ol>
+
+        <!-- ── PART 9: Code Execution Walkthrough ───────────────────────── -->
+        <h1>Part 9: Code Execution Walkthrough</h1>
+        
+        <h2>9.1 Option 1: Add Employee Line-by-Line Execution</h2>
+        <ol>
+            <li><strong>Menu Choice:</strong> The user enters <code>1</code>. Main's switch block routes the execution to <code>addEmployee()</code>.</li>
+            <li><strong>Collect Fields:</strong> Main prompts the user for details (ID, Name, Department, Designation, Type, Base Salary, Leaves).</li>
+            <li><strong>Validation Checks:</strong> <code>ValidationUtil</code> checks input parameters. If any validation fails, the program catches the exception, prints a warning message, and returns to the menu.</li>
+            <li><strong>Object Instantiation:</strong> A switch expression creates the corresponding subclass:
+                <pre><code>Employee employee = new RegularEmployee(id, name, dept, desig, salary, leave);</code></pre>
+            </li>
+            <li><strong>Memory Update:</strong> <code>employeeService.addEmployee(employee)</code> adds the object to the <code>HashMap</code>. If the ID already exists, a <code>DuplicateEmployeeException</code> is thrown.</li>
+            <li><strong>Console Output:</strong> Main prints a success message.</li>
+        </ol>
+
+        <!-- ── PART 10: JVM Memory Model Analysis ───────────────────────── -->
+        <h1>Part 10: JVM Memory Model Analysis</h1>
+        
+        <p>Java manages application memory within two primary structures inside the JVM:</p>
+        <ul>
+            <li><strong>JVM Stack:</strong> Stores local primitive variables and method call references. Memory allocation is fast and handled automatically.</li>
+            <li><strong>JVM Heap:</strong> Stores instanced objects (like employee subclasses) and the <code>HashMap</code> structure. Garbage Collection scans this area to clean up dereferenced nodes.</li>
+            <li><strong>Method Area:</strong> Stores metadata about classes, method definitions, static variables, and the runtime constant pool.</li>
+        </ul>
+
+        <!-- ── PART 11: Architecture Decoupling ─────────────────────────── -->
+        <h1>Part 11: Architecture Decoupling</h1>
+        
+        <p>A common mistake in simple projects is placing user interaction, calculation formulas, and file access logic in a single file. This tight coupling makes the code difficult to test, maintain, or update. Our system implements a clean 4-Layer Architecture that decouples responsibilities:</p>
+        <ul>
+            <li><strong>Presentation Layer:</strong> Main.java - Handles console menus and user interaction. The <code>Scanner</code> is confined to this layer; no services read from or write to the console directly.</li>
+            <li><strong>Service Layer:</strong> Acts as the system orchestrator. <code>EmployeeService</code> manages memory transactions, <code>PayrollService</code> formats payslips, and <code>FileService</code> handles file I/O.</li>
+            <li><strong>Utility Layer:</strong> Provides stateless helper methods. <code>PayrollCalculator</code> processes math, and <code>ValidationUtil</code> sanitizes inputs.</li>
+            <li><strong>Model Layer:</strong> Defines the system entities. The abstract parent class <code>Employee</code> and its concrete subclasses represent the data structures.</li>
+        </ul>
+
+        <!-- ── PART 12: Why Every Package Exists ────────────────────────── -->
+        <h1>Part 12: Why Every Package Exists</h1>
+        
+        <p>Separation of concerns is a core design principle. We organize the codebase into distinct packages by responsibility:
+        <ul>
+            <li><code>model/</code>: Defines data structures (Employee subclasses).</li>
+            <li><code>service/</code>: Implements business operations (CRUD, payslip formatting, file I/O).</li>
+            <li><code>util/</code>: Contains stateless helper methods (calculations, validation checks).</li>
+            <li><code>exception/</code>: Group custom business exceptions.</li>
+            <li><code>constants/</code>: Centralizes configuration values (rates, file paths).</li>
+        </ul>
+        This package separation helps prevent circular dependencies and makes the codebase easier to maintain.</p>
+
+        <!-- ── PART 13: Real-Time Industry Examples ─────────────────────── -->
+        <h1>Part 13: Real-Time Industry Examples</h1>
+        
+        <p>To help bridge the gap between classroom theory and real-world engineering, this table maps the core concepts of this project to their industry equivalents:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Concept in this Project</th>
+                    <th>Enterprise Industry Equivalent</th>
+                    <th>Why it matters in Production</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>HashMap database</strong></td>
+                    <td>Redis In-Memory Session Cache</td>
+                    <td>Provides sub-millisecond lookups for frequently accessed data.</td>
+                </tr>
+                <tr>
+                    <td><strong>BufferedWriter</strong></td>
+                    <td>Kafka Log Appender / Auditing Stream</td>
+                    <td>Buffers write requests to disk to prevent performance bottlenecks.</td>
+                </tr>
+                <tr>
+                    <td><strong>ValidationUtil</strong></td>
+                    <td>API Gateway Input Sanitization / Firewall</td>
+                    <td>Blocks malformed inputs at the entry point to protect down-stream services.</td>
+                </tr>
+                <tr>
+                    <td><strong>Checked Exceptions</strong></td>
+                    <td>Database Transaction Rollback Alerts</td>
+                    <td>Forces developers to handle errors cleanly, preventing crashes and data loss.</td>
+                </tr>
+                <tr>
+                    <td><strong>Polymorphism</strong></td>
+                    <td>Payment Gateway Integration Strategy</td>
+                    <td>Allows the system to support new payment options (Stripe, PayPal) without modifying the main checkout logic.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ── PART 14: Flowcharts Catalog ──────────────────────────────── -->
+        <h1>Part 14: Flowcharts Catalog</h1>
+        
+        <h2>14.1 Main Menu Loop Flowchart</h2>
+        <pre>
+        [Application Starts]
+                 │
+                 ▼
+     [Initialize Services & Map]
+                 │
+                 ▼
+      ┌──► [Display Menu Options]
+      │          │
+      │          ▼
+      │     [Read Choice]
+      │          │
+      │   Is Exit (Choice 10)?
+      │   ┌──────┴──────┐
+      │  No            Yes ──► [Close Scanner] ──► [End]
+      │   │
+      │   ▼
+      │ [Execute Route Method]
+      │ (try-catch wraps errors)
+      │          │
+      └──────────┘</pre>
+
+        <!-- ── PART 15: UML Diagrams Catalog ────────────────────────────── -->
+        <h1>Part 15: UML Diagrams Catalog</h1>
+        
+        <h2>15.1 Structural Class Diagram</h2>
+        <pre>
+        +-------------------------+
+        |       Employee          |
+        |      (Abstract)         |
+        +-------------------------+
+        | - id, name, salary      |
+        | + calculateSalary()*    |
+        +------------▲------------+
+                     │
+         ┌───────────┼───────────┐
+   +-----┴----+ +----+-----+ +───┴────+
+   | Regular  | | Contract | | Intern |
+   | Employee | | Employee | |        |
+   +----------+ +----------+ +--------+</pre>
+
+        <h2>15.2 System Sequence Diagram (Generate Payslip)</h2>
+        <pre>
+Admin         Main         EmployeeService     PayrollService      FileService
+ │             │                 │                   │                  │
+ ├───[Choice]─►│                 │                   │                  │
+ │             ├───[Search]─────►│                   │                  │
+ │             │◄──[Return Object]─                  │                  │
+ │             ├───[Generate]───────────────────────►│                  │
+ │             │                                     ├──[polymorphic]──┐│
+ │             │                                     │  calculateSalary││
+ │             │                                     │◄────────────────┘│
+ │             │◄──[Format Result]───────────────────│                  │
+ │◄──[Render]──┤                                     │                  │
+ ├───[Export]─►│                                     │                  │
+               ├───[Write File]────────────────────────────────────────►│</pre>
+
+        <!-- ── PART 16: Verification & Testing Suite ────────────────────── -->
+        <h1>Part 16: Verification & Testing Suite</h1>
+        
+        <p>This test matrix validates the system under positive, negative, and boundary conditions:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>TC ID</th>
+                    <th>Category</th>
+                    <th>Inputs / Scenario</th>
+                    <th>Expected Output / Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TC-01</strong></td>
+                    <td>Positive CRUD</td>
+                    <td>Add employee ID <code>106</code>, Regular</td>
+                    <td>Record added successfully. Visible in View All.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-02</strong></td>
+                    <td>Duplicate Check</td>
+                    <td>Add employee ID <code>101</code> again</td>
+                    <td>Throws <code>DuplicateEmployeeException</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-03</strong></td>
+                    <td>Boundary check</td>
+                    <td>Salary = <code>0</code></td>
+                    <td>Throws <code>InvalidSalaryException</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-04</strong></td>
+                    <td>Boundary check</td>
+                    <td>Leaves = <code>31</code> days</td>
+                    <td>Throws <code>InvalidLeaveException</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-05</strong></td>
+                    <td>Regex validation</td>
+                    <td>Name = <code>"John123"</code></td>
+                    <td>Throws <code>IllegalArgumentException</code> (letters only).</td>
+                </tr>
+                <tr>
+                    <td><strong>TC-06</strong></td>
+                    <td>File resilience</td>
+                    <td>Letters in salary field in CSV row</td>
+                    <td>Skips line, records reason, and continues importing next rows.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ── PART 17: Interview & Panel Viva Preparation ──────────────── -->
+        <h1>Part 17: Interview & Panel Viva Preparation</h1>
+        
+        <h3>Q1: Why is the Employee class abstract?</h3>
+        <p><strong>A:</strong> Employee represents a general concept. We never want to instantiate a generic "Employee" object. Instead, all employees must belong to a specific subclass (Regular, Contract, or Intern) that implements the abstract <code>calculateSalary()</code> method.</p>
+        
+        <h3>Q2: How is polymorphism used in the project?</h3>
+        <p><strong>A:</strong> When <code>employee.calculateSalary()</code> is called on an <code>Employee</code> reference, the JVM dynamically resolves the call, invoking the correct subclass implementation at runtime. This avoids the need for nested if-else checks.</p>
+
+        <h3>Q3: Why did you choose HashMap over ArrayList?</h3>
+        <p><strong>A:</strong> Hashing provides constant time $O(1)$ lookup for searches by ID. An <code>ArrayList</code> would require a linear search, taking $O(N)$ time as the number of records grows.</p>
+
+        <h3>Q4: How does try-with-resources prevent memory leaks?</h3>
+        <p><strong>A:</strong> It automatically closes files and streams at the end of the block, even if a runtime exception occurs. This replaces the need for verbose finally blocks.</p>
+
+        <h3>Q5: Explain the Single Responsibility Principle.</h3>
+        <p><strong>A:</strong> SRP states that a class should have one reason to change. In our project, <code>PayrollCalculator</code> is only responsible for calculations, while <code>ValidationUtil</code> handles input verification.</p>
+
+        <!-- ── PART 18: Slide Deck Transcript ────────────────────────────── -->
+        <h1>Part 18: Slide Deck Transcript</h1>
+        
+        <p>This transcript maps to the interactive presentation slide deck (<code>presentation.html</code>):</p>
+        <ul>
+            <li><strong>Slide 1 (Title Slide):</strong> Introduces the project and the team.
+                <br><em>Speaker Script:</em> Welcome the examiners. Introduce the team, college, guide, and project title. State that we are presenting a Java 17 enterprise-grade console application designed using strict layered architecture. Pass control to Member 1.</li>
+            <li><strong>Slide 12 (Overall Layered Architecture):</strong> Explains the 4 layers: Presentation, Service, Utility, and Model.
+                <br><em>Speaker Script:</em> Highlight that each layer only depends on the layer below it, implementing Dependency Inversion.</li>
+            <li><strong>Slide 15 (Class Diagram):</strong> Reviews inheritance, generalization, and relationships between classes.
+                <br><em>Speaker Script:</em> Employee is the abstract parent class, extended by Regular, Contract, and Intern subclasses. Explain the relationships: generalization, association, and aggregation.</li>
+            <li><strong>Slide 35 (Q/A & Conclusion):</strong> Concludes the presentation and opens the floor for questions.
+                <br><em>Speaker Script:</em> Greet the examiners, summarize deliverables, and open the floor to the panel for any questions.</li>
+        </ul>
+
+        <!-- ── PART 19: Future Enhancements ────────────────────────────── -->
+        <h1>Part 19: Future Enhancements</h1>
+        
+        <p>We designed the layered architecture to support future modernization:</p>
+        <ul>
+            <li><strong>Database Integration:</strong> Swap the in-memory <code>HashMap</code> repository for a relational database like MySQL or PostgreSQL using Hibernate ORM.</li>
+            <li><strong>REST API:</strong> Migrate to Spring Boot, replacing the console menus with endpoints like <code>/api/employees</code> secured with JWT authentication.</li>
+            <li><strong>Frontend Web Client:</strong> Build a modern user interface using React or Angular.</li>
+            <li><strong>Containerization:</strong> Package services using Docker for cloud deployments.</li>
+        </ul>
+
+    </div>
+
+</body>
+</html>
