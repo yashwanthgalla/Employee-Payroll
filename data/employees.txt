@@ -3,5 +3,5 @@
 103,Bob Wilson,IT,Intern,INTERN,12000.0,0
 104,Alice Brown,Finance,Analyst,REGULAR,55000.0,3
 105,Charlie Davis,Marketing,Manager,CONTRACT,45000.0,0
+107,Rahul Verma,IT,Developer,REGULAR,50000.0,2
 108,Anita Sharma,HR,Executive,REGULAR,42000.0,1
-109,Rahul Verma,IT,Developer,REGULAR,50000.0,2
